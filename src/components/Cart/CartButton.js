@@ -3,6 +3,7 @@ import classes from './CartButton.module.css';
 import { cartActions } from '../Store/storeReducer';
 
 const CartButton = (props) => {
+  const noOfItems=useSelector(state=>state.cart.noOfItems)
 
   const cartCheck=useSelector(state=>state.cart.cart)
   const dispatch=useDispatch()
@@ -20,12 +21,12 @@ const CartButton = (props) => {
   return (<>
     {cartCheck==='open' && <><button onClick={cartCloseHandler} className={classes.button}>
       <span>My Cart</span>
-      <span className={classes.badge}>1</span>
+      <span className={classes.badge}>{noOfItems}</span>
     </button></>
   }
   {cartCheck==='close' && <><button onClick={cartOpenHandler} className={classes.button}>
       <span>My Cart</span>
-      <span className={classes.badge}>1</span>
+      <span className={classes.badge}>{noOfItems}</span>
     </button></>
   }
   

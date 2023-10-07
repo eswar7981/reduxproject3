@@ -1,8 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
+import { cartActions } from '../Store/storeReducer';
 
 const ProductItem = (props) => {
-  const { title, price, description } = props;
+  const { id,title, price, description } = props;
+
+  const dispatch=useDispatch()
+  
+  const addItemHandler=(e,item)=>{
+    e.preventDefault()
+    dispatch(cartActions.addItemToCart(item))
+  }
 
   return (
     <li className={classes.item}>
@@ -13,7 +22,7 @@ const ProductItem = (props) => {
         </header>
         <p>{description}</p>
         <div className={classes.actions}>
-          <button>Add to Cart</button>
+          <button onClick={(e)=>addItemHandler(e,{id:id,title:title,price:price,quantity:1})}>Add to Cart</button>
         </div>
       </Card>
     </li>

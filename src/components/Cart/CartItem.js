@@ -1,7 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './CartItem.module.css';
-
+import { cartActions } from '../Store/storeReducer';
 const CartItem = (props) => {
-  const { title, quantity, total, price } = props.item;
+  const { id,title, quantity, total, price } = props.item;
+  const dispatch=useDispatch()
+  
+  const itemDecreaseHandler=(e,id)=>{
+    e.preventDefault()
+    dispatch(cartActions.decreaseItemQuantity(id))
+    
+  }  
+
+  const itemIncreaseHandler=(e,id)=>{
+    e.preventDefault()
+    dispatch(cartActions.increaseItemQuantity(id))
+  }  
 
   return (
     <li className={classes.item}>
@@ -14,11 +27,11 @@ const CartItem = (props) => {
       </header>
       <div className={classes.details}>
         <div className={classes.quantity}>
-          x <span>{quantity}</span>
+        <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
-          <button>-</button>
-          <button>+</button>
+          <button onClick={(e)=>itemDecreaseHandler(e,id)}>-</button>
+          <button onClick={(e)=>itemIncreaseHandler(e,id)}>+</button>
         </div>
       </div>
     </li>
