@@ -1,9 +1,20 @@
+import { useDispatch } from "react-redux";
 import Card from "../UI/Card";
 import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
+import { cartActions } from "../Store/storeReducer";
 import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { useEffect } from "react";
 const Cart = (props) => {
   const items = useSelector((state) => state.cart.items);
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+    dispatch(cartActions.GetData())
+  },[dispatch])
+ 
+
+
   return (
     <Card className={classes.cart}>
       <h2>Your Shopping Cart</h2>
